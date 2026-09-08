@@ -12,27 +12,110 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Rol {
-  PROFESOR
-  TECNICO
-  DIRECTOR
+enum Role {
+  MECANICO
+  RECEPCIONISTA
+  DUEÑO
 }
 
-enum EstadoOrden {
+enum EstadoServicio {
   RECEPCIONADO
   EN_REPARACION
   LISTO
 }
 
 
-model OrdenServicio {
-  id Int @id @default(autoincrement())
-  descripcion String
-  costoMecanico Int? @default(-1) @map("costo_mecanico")
-  estado EstadoOrden @default(RECEPCIONADO)
-  total Int? @default(-1)
-  id_usuario Int
-  id_vehiculo Int
-  fechaCreacion DateTime @default(now())
-}//falta agregar relaciones
+model Usuario {
+  id            Int      @id @default(autoincrement())
+  nombres       String
+  apellidos     String
+  email         String   @unique
+  password      String   @map("password_hash")
+  role          Role     @default(RECEPCIONISTA)
+  fechacreacion DateTime @default(now())
 
+  // Relaciones inversas
+  orden_servicios OrdenServicio[]
+
+  @@map("usuario")
+}
+
+model OrdenServicio {
+  id            Int            @id @default(autoincrement())
+  descripcion   String
+  costomecanico Decimal        @default(0.0)
+  estado        EstadoServicio @default(RECEPCIONADO)
+  total         Decimal        @default(0.0)
+  idUsuario     Int            @map("id_usuario")
+  idVehiculo    Int            @map("id_vehiculo")
+  fechacreacion DateTime       @default(now())
+
+  // Relaciones inversas
+  detalle_servicios DetalleServicio[]
+
+  // Relacion una orden de servicio es atendida por un usuario (mecanico)
+  usuario  Usuario  @relation(fields: [idUsuario], references: [id], onDelete: Restrict)
+  // Relacion una orden de servicio es realizada a un vehiculo
+  vehiculo Vehiculo @relation(fields: [idVehiculo], references: [id], onDelete: Restrict)
+
+  @@map("orden_servicio")
+}
+
+model Vehiculo {
+  id            Int      @id @default(autoincrement())
+  placa         String
+  marca         String
+  modelo        String
+  idCliente     Int      @map("id_cliente")
+  fechacreacion DateTime @default(now())
+
+  // Relaciones inversas
+  orden_servicios OrdenServicio[]
+
+  // Relacion un vehiculo le pertenece a un cliente
+  clientes Cliente @relation(fields: [idCliente], references: [id], onDelete: Restrict)
+
+  @@map("vehiculo")
+}
+
+model DetalleServicio {
+  id              Int      @id @default(autoincrement())
+  cantidad        Int      @default(0)
+  subTotal        Decimal  @default(0.0)
+  fechacreacion   DateTime @default(now())
+  idOrdenServicio Int
+  idRepuesto      Int
+
+  // Relacion de un detalle servicio pertenece a una orden servicio
+  orden_servicios OrdenServicio @relation(fields: [idOrdenServicio], references: [id], onDelete: Restrict)
+  // Relacion de un detalle servicio registra a un repuesto
+  repuestos       Repuesto      @relation(fields: [idRepuesto], references: [id], onDelete: Restrict)
+
+  @@map("detalle_servicio")
+}
+
+model Repuesto {
+  id            Int      @id @default(autoincrement())
+  nombre        String
+  precio_unid   Decimal  @default(0.0)
+  stock         Int      @default(0)
+  fechacreacion DateTime @default(now())
+
+  // Relaciones inversas
+  detalle_servicios DetalleServicio[]
+
+  @@map("repuesto")
+}
+
+model Cliente {
+  id            Int      @id @default(autoincrement())
+  nombres       String
+  apellidos     String
+  email         String   @unique
+  fechacreacion DateTime @default(now())
+
+  // Relaciones inversas
+  vehiculos Vehiculo[]
+
+  @@map("cliente")
+}
