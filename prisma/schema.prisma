@@ -18,38 +18,21 @@ enum Rol {
   DIRECTOR
 }
 
-enum EstadoTickets {
-  ABIERTO
-  EN_PROCESO
-  RESULTO
+enum EstadoOrden {
+  RECEPCIONADO
+  EN_REPARACION
+  LISTO
 }
 
-model Usuario {
-  id              Int      @id @default(autoincrement())
-  nombre          String
-  email           String   @unique
-  password        String   @map("password_hash")
-  rol             Rol      @default(PROFESOR)
-  creadoEn        DateTime @default(now())
-  ticketReportado Ticket[] @relation("ticketProfesor")
-  ticketAtendido  Ticket[] @relation("ticketTecnico")
 
-  @@map("usuarios")
-}
-
-model Ticket {
-  id          Int           @id @default(autoincrement())
-  titulo      String
+model OrdenServicio {
+  id Int @id @default(autoincrement())
   descripcion String
-  aula        String
-  estado      EstadoTickets @default(ABIERTO)
-  creadoEn    DateTime      @default(now())
-  //el ID del creador
-  creadorId   Int           @map("creador_id")
-  creador     Usuario       @relation("ticketProfesor", fields: [creadorId], references: [id])
-  //el ID del tecnico asignado 
-  tecnicoId   Int?           @map("tecnico_id")
-  tecnico     Usuario?       @relation("ticketTecnico", fields: [tecnicoId], references: [id])
+  costoMecanico Int? @default(-1) @map("costo_mecanico")
+  estado EstadoOrden @default(RECEPCIONADO)
+  total Int? @default(-1)
+  id_usuario Int
+  id_vehiculo Int
+  fechaCreacion DateTime @default(now())
+}//falta agregar relaciones
 
-  @@map("tickets")
-}
