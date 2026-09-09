@@ -9,6 +9,9 @@ import swaggerDocument from "../swagger-output.json" assert { type: "json" };
 
 import { verifyToken } from "./middlewares/auth.middleware";
 
+import clienteRouter from "./routes/cliente.routes";
+import vehiculoRouter from "./routes/vehiculo.routes";
+
 const app = express();
 
 app.use(express.json());
@@ -24,6 +27,19 @@ app.use(
   verifyToken,
   /* #swagger.security = [{ "bearerAuth": [] }] */
   usuarioRouter,
+);
+
+app.use(
+  "/clientes",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  clienteRouter,
+);
+app.use(
+  "/vehiculos",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  vehiculoRouter,
 );
 
 // Inicializador de servidor

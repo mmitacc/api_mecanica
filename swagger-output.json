@@ -16,7 +16,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Logea a un Usuario",
+        "summary": "logueo a un Usuario y genera su token",
         "description": "El token del usuario",
         "responses": {
           "200": {
@@ -161,6 +161,458 @@
                     "example": "any"
                   },
                   "role": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Obtener todos los clientes",
+        "description": "Obtiene la lista de todos los clientes registrados.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Crear un cliente",
+        "description": "Registra un nuevo cliente.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombres": {
+                  "type": "string",
+                  "example": "Juan Carlos"
+                },
+                "apellidos": {
+                  "type": "string",
+                  "example": "Pérez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombres": {
+                    "example": "any"
+                  },
+                  "apellidos": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/{id}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Obtener un cliente por ID",
+        "description": "Obtiene los datos de un cliente específico.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del cliente"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Actualizar un cliente",
+        "description": "Actualiza los datos de un cliente existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del cliente"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombres": {
+                  "type": "string",
+                  "example": "Juan Carlos"
+                },
+                "apellidos": {
+                  "type": "string",
+                  "example": "Pérez"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "juan@gmail.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombres": {
+                    "example": "any"
+                  },
+                  "apellidos": {
+                    "example": "any"
+                  },
+                  "email": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vehiculos/": {
+      "get": {
+        "tags": [
+          "Vehículos"
+        ],
+        "summary": "Obtener todos los vehículos",
+        "description": "Obtiene la lista de todos los vehículos registrados.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Vehículos"
+        ],
+        "summary": "Crear un vehículo",
+        "description": "Registra un nuevo vehículo asociado a un cliente.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "placa": {
+                  "type": "string",
+                  "example": "ABC123"
+                },
+                "marca": {
+                  "type": "string",
+                  "example": "Toyota"
+                },
+                "modelo": {
+                  "type": "string",
+                  "example": "Corolla"
+                },
+                "idCliente": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "example": "any"
+                  },
+                  "marca": {
+                    "example": "any"
+                  },
+                  "modelo": {
+                    "example": "any"
+                  },
+                  "idCliente": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/vehiculos/{id}": {
+      "get": {
+        "tags": [
+          "Vehículos"
+        ],
+        "summary": "Obtener un vehículo por ID",
+        "description": "Obtiene los datos de un vehículo específico.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del vehículo"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Vehículos"
+        ],
+        "summary": "Actualizar un vehículo",
+        "description": "Actualiza los datos de un vehículo existente.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID del vehículo"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "placa": {
+                  "type": "string",
+                  "example": "ABC123"
+                },
+                "marca": {
+                  "type": "string",
+                  "example": "Toyota"
+                },
+                "modelo": {
+                  "type": "string",
+                  "example": "Corolla"
+                },
+                "idCliente": {
+                  "type": "number",
+                  "example": 1
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "placa": {
+                    "example": "any"
+                  },
+                  "marca": {
+                    "example": "any"
+                  },
+                  "modelo": {
+                    "example": "any"
+                  },
+                  "idCliente": {
                     "example": "any"
                   }
                 }
