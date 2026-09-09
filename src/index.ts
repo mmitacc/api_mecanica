@@ -1,6 +1,7 @@
 import express from "express";
 import type { Request, Response } from "express";
 
+import ordenRouter from "./routes/ordenservicio.route"
 import usuarioRouter from "./routes/usuario.route";
 import authRouter from "./routes/auth.routes";
 
@@ -25,6 +26,13 @@ app.use(
   /* #swagger.security = [{ "bearerAuth": [] }] */
   usuarioRouter,
 );
+app.use(
+  "/ordenservicio",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  ordenRouter,
+);
+
 
 // Inicializador de servidor
 app.listen(3000, () => {

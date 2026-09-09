@@ -66,10 +66,11 @@ export const UpdateOrden = async (req: Request, res: Response) => {
     if (!estado || !costo_mecanico || !id || total) {
       return res.status(400).json({ message: "faltan campos obligatorios" });
     }
-    const ticket = await OrdenModel.update({ costo_mecanico, estado, total}, id);
+    const fechacreacion = new Date()
+    const orden = await OrdenModel.update({ costo_mecanico, estado, total, fechacreacion}, id);
     return res
       .status(200)
-      .json({ message: "orden actualizado con exito", data: ticket });
+      .json({ message: "orden actualizado con exito", data: orden });
   } catch (error) {
     return res.status(500).json({ message: error });
   }

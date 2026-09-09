@@ -11,6 +11,7 @@ export interface UpdateOrden {
     costo_mecanico: number;
     estado: EstadoServicio;
     total: number;
+    fechacreacion: Date;
 }
 export const OrdenModel = {
   getAll: async () => {
