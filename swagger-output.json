@@ -531,6 +531,152 @@
           }
         ]
       }
+    },
+    "/detalles/": {
+      "get": {
+        "tags": [
+          "Detalle de Servicio"
+        ],
+        "summary": "Obtiene todas los Detalles de Servicio",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Detalle de Servicio"
+        ],
+        "summary": "Crea un nuevo detalle de servicio",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cantidad": {
+                    "type": "number",
+                    "example": "2"
+                  },
+                  "subTotal": {
+                    "type": "number",
+                    "example": "20.65"
+                  },
+                  "idOrdenServicio": {
+                    "type": "number",
+                    "example": "1"
+                  },
+                  "idRepuesto": {
+                    "type": "number",
+                    "example": "1"
+                  }
+                },
+                "required": [
+                  "cantidad",
+                  "dubTotal",
+                  "idOrdenServicio",
+                  "idRepuesto"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/detalles/{id}": {
+      "put": {
+        "tags": [
+          "Detalle de Servicio"
+        ],
+        "summary": "Actualiza un Detalle de Servicio segun el id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cantidad": {
+                    "type": "number",
+                    "example": 10
+                  }
+                },
+                "required": [
+                  "cantidad"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Detalle de Servicio"
+        ],
+        "summary": "Elimina un Detalle de Servicio segun el id",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   },
   "components": {

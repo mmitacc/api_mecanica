@@ -1,6 +1,7 @@
 import express from "express";
 
 import authRouter from "./routes/auth.routes";
+import detallesrouter from "./routes/detalles.routes"
 import usuarioRouter from "./routes/usuario.route";
 import repuestoRouter from "./routes/repuesto.routes";
 import swaggerUi from "swagger-ui-express";
@@ -29,6 +30,11 @@ app.use(
   /* #swagger.security = [{ "bearerAuth": [] }] */
   repuestoRouter,
 );
+app.use("/detalles", 
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */        
+  detallesrouter,
+ );
 
 // Inicializador de servidor
 app.listen(3000, () => {
