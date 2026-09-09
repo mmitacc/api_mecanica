@@ -1,6 +1,7 @@
 import express from "express";
 
 import authRouter from "./routes/auth.routes";
+import ordenRouter from "./routes/ordenservicio.route"
 import detallesrouter from "./routes/detalles.routes"
 import usuarioRouter from "./routes/usuario.route";
 import repuestoRouter from "./routes/repuesto.routes";
@@ -35,8 +36,14 @@ app.use("/detalles",
   /* #swagger.security = [{ "bearerAuth": [] }] */        
   detallesrouter,
  );
+app.use("/ordenservicio",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  ordenRouter,
+);
 
 // Inicializador de servidor
+console.clear()
 app.listen(3000, () => {
   console.log(`[[<API>]]: Servidor corriendo en http://localhost:3000`);
   console.log(
