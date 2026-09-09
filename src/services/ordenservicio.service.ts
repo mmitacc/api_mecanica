@@ -8,8 +8,8 @@ export async function getReporte(
 ) {
     const where: Prisma.OrdenServicioWhereInput = {
         fechacreacion: {
-            gte: new Date(minFecha),
-            lte: new Date(maxFecha),
+            gte: new Date(minFecha).toISOString(),
+            lte: new Date(maxFecha).toISOString(),
         },
         estado: {
             equals: "LISTO",

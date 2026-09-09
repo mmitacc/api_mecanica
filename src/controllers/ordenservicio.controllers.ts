@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { OrdenModel } from "../models/ordenservicio.model";
+import { getReporte } from "../services/ordenservicio.service";
 
 export const getOrden = async (req: Request, res: Response) => {
   /* 
@@ -75,3 +76,27 @@ export const UpdateOrden = async (req: Request, res: Response) => {
     return res.status(500).json({ message: error });
   }
 };
+
+export const getReporteFecha = async (req: Request, res: Response) => {
+  /* 
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.tags = ["Orden de Servicio"]
+    #swagger.summary = "Genera un reporte de Ordenes Servicio y muestra el monto total de respuestos y de ganancias"
+    #swagger.description= "Reporte de Ordenes Servicio"
+     #swagger.requestBody ={
+      required:true,
+      schema:{
+        $ref:"#/components/schemas/ordenservicioReporteDTO"
+      }
+    }
+  */
+  try {
+    let minFecha = String(req.query.minFecha)
+    let maxFecha = String(req.query.maxFecha)
+    const citas = await getReporte(minFecha,maxFecha)
+    res.json(citas)
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+}
+
