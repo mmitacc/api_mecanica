@@ -22,7 +22,8 @@ export const detallesModels = {
                 data: {
                     cantidad,
                     idOrdenServicio,
-                    idRepuesto
+                    idRepuesto,
+                    subTotal
                 }
             })
         })
