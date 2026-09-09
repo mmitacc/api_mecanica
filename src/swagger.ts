@@ -1,4 +1,5 @@
 import swaggerAutogen from "swagger-autogen";
+import { update } from "./controllers/detalles.controller";
 
 const doc = {
   info: {
