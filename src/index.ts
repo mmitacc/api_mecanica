@@ -1,10 +1,9 @@
 import express from "express";
-import type { Request, Response } from "express";
 
-import usuarioRouter from "./routes/usuario.route";
 import authRouter from "./routes/auth.routes";
 import detallesrouter from "./routes/detalles.routes"
-
+import usuarioRouter from "./routes/usuario.route";
+import repuestoRouter from "./routes/repuesto.routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger-output.json" assert { type: "json" };
 
@@ -19,14 +18,23 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Endpoints
 app.use("/auth", authRouter);
-
 app.use(
   "/usuarios",
   verifyToken,
   /* #swagger.security = [{ "bearerAuth": [] }] */
   usuarioRouter,
 );
-app.use("/detalles", detallesrouter);
+app.use(
+  "/repuestos",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  repuestoRouter,
+);
+app.use("/detalles", 
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */        
+  detallesrouter,
+ );
 
 // Inicializador de servidor
 app.listen(3000, () => {
