@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 
 import usuarioRouter from "./routes/usuario.route";
 import authRouter from "./routes/auth.routes";
-
+import repuestoRouter from "./routes/repuesto.routes";
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger-output.json" assert { type: "json" };
 
@@ -24,6 +24,12 @@ app.use(
   verifyToken,
   /* #swagger.security = [{ "bearerAuth": [] }] */
   usuarioRouter,
+);
+app.use(
+  "/repuestos",
+  verifyToken,
+  /* #swagger.security = [{ "bearerAuth": [] }] */
+  repuestoRouter,
 );
 
 // Inicializador de servidor
