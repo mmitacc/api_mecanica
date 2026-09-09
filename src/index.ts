@@ -17,14 +17,9 @@ app.use(express.json());
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Endpoints
-app.use("/auth", authRouter);
+// app.use("/auth", authRouter);
 
-app.use(
-  "/usuarios",
-  verifyToken,
-  /* #swagger.security = [{ "bearerAuth": [] }] */
-  usuarioRouter,
-);
+app.use("/usuarios", usuarioRouter);
 
 // Inicializador de servidor
 app.listen(3000, () => {
