@@ -1,15 +1,15 @@
 import { prisma } from "../config/prisma";
-import { EstadoOrden } from "../../generated/prisma/enums";
+import { EstadoServicio } from "../../generated/prisma/enums";
 
 export interface RegistrarOrden {
     descripcion: string;
-    id_usuario: number;
-    id_vehiculo: number;
+    idUsuario: number;
+    idVehiculo: number;
 }
 
 export interface UpdateOrden {
     costo_mecanico: number;
-    estado: EstadoOrden;
+    estado: EstadoServicio;
     total: number;
 }
 export const OrdenModel = {
@@ -17,9 +17,9 @@ export const OrdenModel = {
     return await prisma.ordenServicio.findMany();
   },
   crear: async (data: RegistrarOrden) => {
-    return await prisma.ordenServicio.create({
-      data,
-    });
+    return await prisma.ordenServicio.create(
+      {data},
+    );
   },
   update: async (data: UpdateOrden, id: number) => {
     return await prisma.ordenServicio.update({

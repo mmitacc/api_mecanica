@@ -2,6 +2,12 @@ import type { Request, Response } from "express";
 import { OrdenModel } from "../models/ordenservicio.model";
 
 export const getOrden = async (req: Request, res: Response) => {
+  /* 
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.tags = ["Orden de Servicio"]
+    #swagger.summary = "ver a todas las Ordenes de Servicio"
+    #swagger.description= "Permite visualizar el listado de todas las Ordenes de Servicio"
+  */
   try {
     const orden = await OrdenModel.getAll();
     return res.status(200).json({ data: orden });
@@ -11,15 +17,27 @@ export const getOrden = async (req: Request, res: Response) => {
 };
 
 export const postOrden = async (req: Request, res: Response) => {
+  /* 
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.tags = ["Orden de Servicio"]
+    #swagger.summary = "Un recepcionista o dueño pueden crear una Orden de Servicio"
+    #swagger.description= "Permite la creacion de una Orden de Servicio"
+     #swagger.requestBody ={
+      required:true,
+      schema:{
+        $ref:"#/components/schemas/ordenservicioDTO"
+      }
+    }
+  */
   try {
-    const { descripcion, id_usuario, id_vehiculo } = req.body;
-    if (!id_usuario || !descripcion || !id_vehiculo ) {
+    const { descripcion, idUsuario, idVehiculo } = req.body;
+    if (!idUsuario || !descripcion || !idVehiculo ) {
       return res.status(400).json({ message: "faltan campos obligatorios" });
     }
     const ticket = await OrdenModel.crear({
       descripcion,
-      id_usuario,
-      id_vehiculo,
+      idUsuario,
+      idVehiculo,
     });
     return res
       .status(201)
@@ -30,6 +48,18 @@ export const postOrden = async (req: Request, res: Response) => {
 };
 
 export const UpdateOrden = async (req: Request, res: Response) => {
+  /* 
+    #swagger.security = [{ "bearerAuth": [] }]
+    #swagger.tags = ["Orden de Servicio"]
+    #swagger.summary = "Un mecanico o dueño puede cambia el estado de una Orden de Servicio"
+    #swagger.description= "Permite la actualizacion del estado de una Orden de Servicio"
+     #swagger.requestBody ={
+      required:true,
+      schema:{
+        $ref:"#/components/schemas/ordenservicioUpdateDTO"
+      }
+    }
+  */
   try {
     const { costo_mecanico, estado, total } = req.body;
     const id = Number(req.params.id);
