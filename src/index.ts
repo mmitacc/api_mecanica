@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 
 import usuarioRouter from "./routes/usuario.route";
 import authRouter from "./routes/auth.routes";
+import detallesrouter from "./routes/detalles.routes"
 
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument from "../swagger-output.json" assert { type: "json" };
@@ -25,6 +26,7 @@ app.use(
   /* #swagger.security = [{ "bearerAuth": [] }] */
   usuarioRouter,
 );
+app.use("/detalles", detallesrouter);
 
 // Inicializador de servidor
 app.listen(3000, () => {
