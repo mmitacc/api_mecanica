@@ -1,10 +1,10 @@
 import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { Rol } from "../../generated/prisma/enums";
+import { Role } from "../../generated/prisma/enums";
 export interface AuthPayload {
   id: number;
   email: string;
-  role: Rol;
+  role: Role;
 }
 
 declare global {
@@ -15,7 +15,11 @@ declare global {
   }
 }
 
-export function verifyToken(req: Request, res: Response, next: NextFunction) {
+export const verifyToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const header = req.headers.authorization;
 
   if (!header || !header.startsWith("Bearer ")) {
@@ -36,4 +40,4 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
   } catch {
     return res.status(401).json({ message: "Token inválido o expirado" });
   }
-}
+};
