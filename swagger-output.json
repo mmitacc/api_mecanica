@@ -546,7 +546,12 @@
           "500": {
             "description": "Internal Server Error"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -565,6 +570,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -574,24 +584,19 @@
                 "properties": {
                   "cantidad": {
                     "type": "number",
-                    "example": "2"
-                  },
-                  "subTotal": {
-                    "type": "number",
-                    "example": "20.65"
+                    "example": 2
                   },
                   "idOrdenServicio": {
                     "type": "number",
-                    "example": "1"
+                    "example": 1
                   },
                   "idRepuesto": {
                     "type": "number",
-                    "example": "1"
+                    "example": 1
                   }
                 },
                 "required": [
                   "cantidad",
-                  "dubTotal",
                   "idOrdenServicio",
                   "idRepuesto"
                 ]
@@ -629,6 +634,11 @@
             "description": "Internal Server Error"
           }
         },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "required": true,
           "content": {
@@ -675,7 +685,208 @@
           "500": {
             "description": "Internal Server Error"
           }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/ordenservicio/": {
+      "get": {
+        "tags": [
+          "Orden de Servicio"
+        ],
+        "summary": "ver a todas las Ordenes de Servicio",
+        "description": "Permite visualizar el listado de todas las Ordenes de Servicio",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Orden de Servicio"
+        ],
+        "summary": "Un recepcionista o dueño pueden crear una Orden de Servicio",
+        "description": "Permite la creacion de una Orden de Servicio",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "descripcion": "El freno no frena",
+                "idUsuario": 2,
+                "idVehiculo": 2
+              }
+            }
+          }
         }
+      }
+    },
+    "/ordenservicio/{id}": {
+      "put": {
+        "tags": [
+          "Orden de Servicio"
+        ],
+        "summary": "Un mecanico o dueño puede cambia el estado de una Orden de Servicio",
+        "description": "Permite la actualizacion del estado de una Orden de Servicio",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 1
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "example": {
+                "costomecanico": 400,
+                "estado": "LISTO",
+                "total": 700
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ordenservicio/reporte": {
+      "get": {
+        "tags": [
+          "Orden de Servicio"
+        ],
+        "summary": "Genera un reporte de Ordenes Servicio y muestra el monto total de respuestos y de ganancias",
+        "description": "Reporte de Ordenes Servicio",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "minFecha",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxFecha",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/clientes/": {
