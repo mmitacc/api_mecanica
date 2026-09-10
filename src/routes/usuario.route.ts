@@ -13,7 +13,7 @@ import { validate } from "../middlewares/validateSchema.middleware";
 import {
   CreateUsuarioSchema,
   IdUsuarioSchema,
-  PasswordUsuarioSchema,
+  AuthUsuarioSchema,
   UpdateUsuarioSchema,
 } from "../schemas/usuario.schema";
 
@@ -92,6 +92,7 @@ router.post(
 
 router.put(
   "/password",
+  validate(AuthUsuarioSchema, "body"),
   putUsuarioPassword,
   /*  
     #swagger.tags = ['Usuario']

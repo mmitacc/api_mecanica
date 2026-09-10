@@ -1,11 +1,14 @@
 import { Router } from "express";
 import { loginUsuario } from "../controllers/usuario.controller";
+import { validate } from "../middlewares/validateSchema.middleware";
+import { AuthUsuarioSchema } from "../schemas/usuario.schema";
 
 const router = Router();
 
 router.post(
   "/login",
   loginUsuario,
+  validate(AuthUsuarioSchema, "body"),
   /*  
     #swagger.tags = ['Auth']
     #swagger.summary = 'logueo a un Usuario y genera su token'
