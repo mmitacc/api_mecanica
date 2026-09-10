@@ -42,11 +42,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "Password123"
+                    "example": "123456"
                   }
                 }
               }
@@ -68,6 +68,37 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/usuarios/mecanico": {
+      "get": {
+        "tags": [
+          "Usuario"
+        ],
+        "summary": "Trae todas las ordenes-servicios asignadas al Mecanico logueado",
+        "description": "Retorna el mecanico y todas sus ordenes-servicios asignadas a él.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -158,7 +189,7 @@
           }
         ],
         "requestBody": {
-          "description": "Actualizar el email, role y/o username de un usuario",
+          "description": "Actualiza un Usuario, uno o más campos: nombres, apellidos, email, y role (MECANICO, RECEPCIONISTA, DUEÑO)",
           "required": true,
           "content": {
             "application/json": {
@@ -175,7 +206,7 @@
                   },
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "role": {
                     "type": "string",
@@ -255,7 +286,7 @@
           }
         ],
         "requestBody": {
-          "description": "Actualizar el email, role y/o username de un usuario",
+          "description": "Crea un Usuario: nombres, apellidos, email, password y role (MECANICO, RECEPCIONISTA, DUEÑO)",
           "required": true,
           "content": {
             "application/json": {
@@ -272,11 +303,11 @@
                   },
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "123456"
+                    "example": "password123"
                   },
                   "role": {
                     "type": "string",
@@ -322,7 +353,7 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",
