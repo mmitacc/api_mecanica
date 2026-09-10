@@ -9,6 +9,13 @@ import {
   getMecanico,
 } from "../controllers/usuario.controller";
 import { authorize } from "../middlewares/authorize.middleware";
+import { validate } from "../middlewares/validateSchema.middleware";
+import {
+  CreateUsuarioSchema,
+  IdUsuarioSchema,
+  PasswordUsuarioSchema,
+  UpdateUsuarioSchema,
+} from "../schemas/usuario.schema";
 
 const router = Router();
 
@@ -37,6 +44,7 @@ router.get(
 router.get(
   "/:id",
   authorize("DUEÑO"),
+  validate(IdUsuarioSchema, "params"),
   getById,
   /*  
     #swagger.tags = ['Usuario']
@@ -54,6 +62,7 @@ router.get(
 router.post(
   "/register",
   authorize("DUEÑO"),
+  validate(CreateUsuarioSchema, "body"),
   registerUsuario,
   /* 
     #swagger.tags = ['Usuario']
@@ -109,6 +118,8 @@ router.put(
 router.put(
   "/:id",
   authorize("DUEÑO"),
+  validate(IdUsuarioSchema, "params"),
+  validate(UpdateUsuarioSchema, "body"),
   putUsuario,
   /*  
     #swagger.tags = ['Usuario']
@@ -143,6 +154,7 @@ router.put(
 router.delete(
   "/:id",
   authorize("DUEÑO"),
+  validate(IdUsuarioSchema, "params"),
   deleteUsuario,
   /*  
     #swagger.tags = ['Usuario']

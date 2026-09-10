@@ -6,7 +6,7 @@ import type {
 
 export const UsuarioModel = {
   getAll: async () => {
-    return await prisma.usuario.findMany();
+    return await prisma.usuario.findMany({ omit: { password: true } });
   },
   create: async (data: RegistrarUsuario) => {
     return await prisma.usuario.create({ data, omit: { password: true } });
