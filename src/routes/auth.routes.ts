@@ -18,8 +18,8 @@ router.post(
                 schema: {
                     type: 'object',
                     properties: {                
-                      "email": {type: 'string', example: "jp@mail.com"},
-                      "password": {type: 'string', example: "Password123"},
+                      "email": {type: 'string', example: "juan@taller.com"},
+                      "password": {type: 'string', example: "123456"},
                     }
                 }
             }

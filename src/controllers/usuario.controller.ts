@@ -81,6 +81,26 @@ export const getById = async (req: Request, res: Response) => {
   }
 };
 
+export const getMecanico = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.user!.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "El ID debe ser un número entero" });
+    }
+    const usuario = await UsuarioModel.getMecanicoOrden(id);
+    if (!usuario || req.user!.role !== "MECANICO") {
+      return res
+        .status(404)
+        .json({ error: "Solo un mecánico puede ver sus ordenes de servicio." });
+    }
+    return res
+      .status(200)
+      .json({ message: "Mecanico ubicado correctamente", data: usuario });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
+
 export const putUsuario = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
