@@ -42,11 +42,11 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "Password123"
+                    "example": "123456"
                   }
                 }
               }
@@ -189,7 +189,7 @@
           }
         ],
         "requestBody": {
-          "description": "Actualizar el email, role y/o username de un usuario",
+          "description": "Actualiza un Usuario, uno o más campos: nombres, apellidos, email, y role (MECANICO, RECEPCIONISTA, DUEÑO)",
           "required": true,
           "content": {
             "application/json": {
@@ -206,7 +206,7 @@
                   },
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "role": {
                     "type": "string",
@@ -286,7 +286,7 @@
           }
         ],
         "requestBody": {
-          "description": "Actualizar el email, role y/o username de un usuario",
+          "description": "Crea un Usuario: nombres, apellidos, email, password y role (MECANICO, RECEPCIONISTA, DUEÑO)",
           "required": true,
           "content": {
             "application/json": {
@@ -303,11 +303,11 @@
                   },
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",
-                    "example": "123456"
+                    "example": "password123"
                   },
                   "role": {
                     "type": "string",
@@ -353,7 +353,7 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "example": "jp@mail.com"
+                    "example": "juan@taller.com"
                   },
                   "password": {
                     "type": "string",

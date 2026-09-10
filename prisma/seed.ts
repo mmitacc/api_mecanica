@@ -62,7 +62,6 @@ async function main() {
       },
     ],
   });
-
   // 3. Insertar Clientes
   await prisma.cliente.createMany({
     data: [
