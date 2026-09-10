@@ -798,13 +798,10 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioDTO"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioDTO"
+              "example": {
+                "descripcion": "El freno no frena",
+                "idUsuario": 2,
+                "idVehiculo": 2
               }
             }
           }
@@ -825,7 +822,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "example": 1
           },
           {
             "name": "authorization",
@@ -861,13 +859,10 @@
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioUpdateDTO"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioUpdateDTO"
+              "example": {
+                "costomecanico": 400,
+                "estado": "LISTO",
+                "total": 700
               }
             }
           }
@@ -922,22 +917,7 @@
           {
             "bearerAuth": []
           }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioReporteDTO"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/ordenservicioReporteDTO"
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/clientes/": {

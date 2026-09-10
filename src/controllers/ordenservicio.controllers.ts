@@ -19,14 +19,19 @@ export const getOrden = async (req: Request, res: Response) => {
 
 export const postOrden = async (req: Request, res: Response) => {
   /* 
-    #swagger.security = [{ "bearerAuth": [] }]
     #swagger.tags = ["Orden de Servicio"]
     #swagger.summary = "Un recepcionista o dueño pueden crear una Orden de Servicio"
     #swagger.description= "Permite la creacion de una Orden de Servicio"
-     #swagger.requestBody ={
-      required:true,
-      schema:{
-        $ref:"#/components/schemas/ordenservicioDTO"
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          example: {
+            descripcion: "El freno no frena",
+            idUsuario: 2,
+            idVehiculo: 2
+          }
+        }
       }
     }
   */
@@ -54,21 +59,33 @@ export const UpdateOrden = async (req: Request, res: Response) => {
     #swagger.tags = ["Orden de Servicio"]
     #swagger.summary = "Un mecanico o dueño puede cambia el estado de una Orden de Servicio"
     #swagger.description= "Permite la actualizacion del estado de una Orden de Servicio"
-     #swagger.requestBody ={
-      required:true,
-      schema:{
-        $ref:"#/components/schemas/ordenservicioUpdateDTO"
+     #swagger.parameters['id'] = {
+      in: 'path',
+      required: true,
+      type: 'integer',
+      example: 1
+    }
+    #swagger.requestBody = {
+      required: true,
+      content: {
+        "application/json": {
+          example: {
+            costomecanico: 400,
+            estado: "LISTO",
+            total: 700
+          }
+        }
       }
     }
   */
   try {
-    const { costo_mecanico, estado, total } = req.body;
+    const { costomecanico, estado, total } = req.body;
     const id = Number(req.params.id);
-    if (!estado || !costo_mecanico || !id || total) {
+    if (!estado || !costomecanico || !id || !total) {
       return res.status(400).json({ message: "faltan campos obligatorios" });
     }
     const fechacreacion = new Date()
-    const orden = await OrdenModel.update({ costo_mecanico, estado, total, fechacreacion}, id);
+    const orden = await OrdenModel.update({ costomecanico, estado, total, fechacreacion}, id);
     return res
       .status(200)
       .json({ message: "orden actualizado con exito", data: orden });
@@ -83,13 +100,8 @@ export const getReporteFecha = async (req: Request, res: Response) => {
     #swagger.tags = ["Orden de Servicio"]
     #swagger.summary = "Genera un reporte de Ordenes Servicio y muestra el monto total de respuestos y de ganancias"
     #swagger.description= "Reporte de Ordenes Servicio"
-     #swagger.requestBody ={
-      required:true,
-      schema:{
-        $ref:"#/components/schemas/ordenservicioReporteDTO"
-      }
-    }
   */
+ 
   try {
     let minFecha = String(req.query.minFecha)
     let maxFecha = String(req.query.maxFecha)
