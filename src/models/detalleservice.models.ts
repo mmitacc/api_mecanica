@@ -17,7 +17,6 @@ export const detallesModels = {
             if(!repuesto)throw new Error("Repuesto no encontrado")
                 const repuestonumber = repuesto.precio_unid.toNumber()
             const subTotal = cantidad * repuestonumber
-
             return await tx.detalleServicio.create({
                 data: {
                     cantidad,
