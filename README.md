@@ -10,5 +10,7 @@ Para poder usar el presente repositorio, seguir los siguientes pasos:
     npx prisma migrate dev --name init
 4.- Generar los schemas de prisma
     npx prisma generate
-5.- Levantar el servidor backend o Api Restfull
+5.- Generar data inicial con un seed/prisma (automatizado)
+    npm run db-seed
+6.- Levantar el servidor backend o Api Restfull
     npm run dev

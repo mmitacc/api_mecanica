@@ -6,6 +6,7 @@ import {
   putUsuarioPassword,
   deleteUsuario,
   registerUsuario,
+  getMecanico,
 } from "../controllers/usuario.controller";
 import { authorize } from "../middlewares/authorize.middleware";
 
@@ -19,6 +20,17 @@ router.get(
     #swagger.tags = ['Usuario']
     #swagger.summary = 'Obtener todos los Usuarios'
     #swagger.description = 'Retorna toda la lista de usuarios con todos sus campos'
+  */
+);
+
+router.get(
+  "/mecanico",
+  authorize("MECANICO"),
+  getMecanico,
+  /*  
+    #swagger.tags = ['Usuario']
+    #swagger.summary = 'Trae todas las ordenes-servicios asignadas al Mecanico logueado'
+    #swagger.description = 'Retorna el mecanico y todas sus ordenes-servicios asignadas a él.'
   */
 );
 
@@ -49,7 +61,7 @@ router.post(
     #swagger.summary = 'Registrar un Usuario nuevo'
     #swagger.description = 'Retorna el Usuario nuevo'
     #swagger.requestBody = {
-        description: 'Actualizar el email, role y/o username de un usuario',
+        description: 'Crea un Usuario: nombres, apellidos, email, password y role (MECANICO, RECEPCIONISTA, DUEÑO)',
         required: true,
         content: {
             "application/json": {
@@ -58,8 +70,8 @@ router.post(
                     properties: {                
                       "nombres": {type: 'string', example: "Juan"},
                       "apellidos": {type: 'string', example: "Perez"},
-                      "email": {type: 'string', example: "jp@mail.com"},
-                      "password": {type: 'string', example: "123456"},                      
+                      "email": {type: 'string', example: "juan@taller.com"},
+                      "password": {type: 'string', example: "password123"},                      
                       "role": {type: 'string', example: "MECANICO"}
                     }
                 }
@@ -84,7 +96,7 @@ router.put(
                 schema: {
                     type: 'object',
                     properties: {                
-                      "email": {type: 'string', example: "jp@mail.com"},
+                      "email": {type: 'string', example: "juan@taller.com"},
                       "password": {type: 'string', example: "Password123"},
                     }
                 }
@@ -109,7 +121,7 @@ router.put(
     type: 'integer'
     }    
     #swagger.requestBody = {
-        description: 'Actualizar el email, role y/o username de un usuario',
+        description: 'Actualiza un Usuario, uno o más campos: nombres, apellidos, email, y role (MECANICO, RECEPCIONISTA, DUEÑO)',
         required: true,
         content: {
             "application/json": {
@@ -118,7 +130,7 @@ router.put(
                     properties: {                
                       "nombres": {type: 'string', example: "Juan"},
                       "apellidos": {type: 'string', example: "Perez"},
-                      "email": {type: 'string', example: "jp@mail.com"},
+                      "email": {type: 'string', example: "juan@taller.com"},
                       "role": {type: 'string', example: "MECANICO"}
                     }
                 }

@@ -20,6 +20,13 @@ export const UsuarioModel = {
   findEmail: async (email: string) => {
     return await prisma.usuario.findUnique({ where: { email } });
   },
+  getMecanicoOrden: async (id: number) => {
+    return await prisma.usuario.findUnique({
+      where: { id, role: "MECANICO" },
+      include: { orden_servicios: true },
+      omit: { password: true },
+    });
+  },
   update: async (id: number, data: UpdateUsuario) => {
     return await prisma.usuario.update({
       where: { id },

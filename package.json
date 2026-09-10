@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "tsx src/swagger.ts && tsx watch src/index.ts"
+    "dev": "tsx src/swagger.ts && tsx watch src/index.ts",
+    "db-seed": "npx prisma db seed"
   },
   "keywords": [],
   "author": "",
@@ -33,5 +34,8 @@
     "swagger-autogen": "^2.23.7",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
   }
 }
