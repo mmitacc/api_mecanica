@@ -1,4 +1,7 @@
 import { Router } from "express";
+import { validate } from "../middlewares/validateSchema.middleware";
+import { crearVehiculoSchema } from "../schemas/vehiculo.schema";
+import { actualizarVehiculoSchema } from "../schemas/vehiculo.schema";
 
 import {
   getVehiculos,
@@ -43,6 +46,7 @@ router.get(
 router.post(
   "/",
   authorize("RECEPCIONISTA", "DUEÑO"),
+  validate(crearVehiculoSchema),
   postVehiculo,
   /*
     #swagger.tags = ['Vehículos']
@@ -72,6 +76,7 @@ router.post(
 router.put(
   "/:id",
   authorize("RECEPCIONISTA", "DUEÑO"),
+  validate(actualizarVehiculoSchema),
   putVehiculo,
   /*
     #swagger.tags = ['Vehículos']

@@ -1,5 +1,6 @@
 import { Router } from "express";
-
+import { validate } from "../middlewares/validateSchema.middleware";
+import { repuestoIdSchema, repuestoSchema, repuestoUpdateSchema } from "../schemas/repuesto.schema";
 import {
   getRepuestos,
   getRepuesto,
@@ -26,6 +27,7 @@ router.get(
 router.get(
   "/:id",
   authorize("DUEÑO"),
+  validate(repuestoIdSchema, "params"),
   getRepuesto,
   /*
     #swagger.tags = ['Repuesto']
@@ -43,6 +45,7 @@ router.get(
 router.post(
   "/",
   authorize("DUEÑO"),
+  validate(repuestoSchema),
   postRepuesto,
   /*
     #swagger.tags = ['Repuesto']
@@ -66,6 +69,8 @@ router.post(
 router.put(
   "/:id",
   authorize("DUEÑO"),
+  validate(repuestoIdSchema, "params"),
+  validate(repuestoUpdateSchema),
   putRepuesto,
   /*
     #swagger.tags = ['Repuesto']
@@ -95,6 +100,7 @@ router.put(
 router.delete(
   "/:id",
   authorize("DUEÑO"),
+  validate(repuestoIdSchema, "params"),
   deleteRepuesto,
   /*
     #swagger.tags = ['Repuesto']

@@ -1,4 +1,7 @@
 import { Router } from "express";
+import { validate } from "../middlewares/validateSchema.middleware";
+import { crearClienteSchema } from "../schemas/cliente.schema";
+import { actualizarClienteSchema } from "../schemas/cliente.schema";
 
 import { authorize } from "../middlewares/authorize.middleware";
 
@@ -43,6 +46,7 @@ router.get(
 router.post(
   "/",
   authorize("RECEPCIONISTA", "DUEÑO"),
+  validate(crearClienteSchema),
   postCliente,
   /*
     #swagger.tags = ['Clientes']
@@ -71,6 +75,7 @@ router.post(
 router.put(
   "/:id",
   authorize("RECEPCIONISTA", "DUEÑO"),
+  validate(actualizarClienteSchema),
   putCliente,
   /*
     #swagger.tags = ['Clientes']
