@@ -108,9 +108,6 @@ export const putUsuario = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "El ID debe ser un número entero" });
     }
     const { nombres, apellidos, email, role } = req.body;
-    if (!nombres || !apellidos || !email || !role) {
-      return res.status(400).json({ message: "Faltan campos obligatorios" });
-    }
     const usuario = await UsuarioModel.update(id, {
       nombres,
       apellidos,
