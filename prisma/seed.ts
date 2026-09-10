@@ -16,12 +16,19 @@ async function main() {
   await prisma.usuario.deleteMany();
   await prisma.repuesto.deleteMany();
 
+  // El orden es crucial (de tablas dependientes a principales) para evitar errores de llaves foráneas
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "detalle_servicio" RESTART IDENTITY CASCADE;`);
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "orden_servicio" RESTART IDENTITY CASCADE;`);
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "vehiculo" RESTART IDENTITY CASCADE;`);
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "cliente" RESTART IDENTITY CASCADE;`);
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "usuario" RESTART IDENTITY CASCADE;`);
+  await prisma.$executeRawUnsafe(`TRUNCATE TABLE "repuesto" RESTART IDENTITY CASCADE;`);
+
   // 2. Insertar Usuarios (Exactamente 5)
   const hashComun = await bcrypt.hash("123456", 10);
   await prisma.usuario.createMany({
     data: [
       {
-        id: 1,
         nombres: "Manu",
         apellidos: "Manu",
         email: "manu@taller.com",
@@ -29,7 +36,6 @@ async function main() {
         role: Role.DUEÑO,
       },
       {
-        id: 2,
         nombres: "Benjamin",
         apellidos: "Benjamin",
         email: "benjamin@taller.com",
@@ -37,7 +43,6 @@ async function main() {
         role: Role.MECANICO,
       },
       {
-        id: 3,
         nombres: "Daniel",
         apellidos: "Daniel",
         email: "daniel@taller.com",
@@ -45,7 +50,6 @@ async function main() {
         role: Role.MECANICO,
       },
       {
-        id: 4,
         nombres: "Jarold",
         apellidos: "Jarold",
         email: "sergio.mecanico@taller.com",
@@ -53,7 +57,6 @@ async function main() {
         role: Role.MECANICO,
       },
       {
-        id: 5,
         nombres: "Pamela",
         apellidos: "Pamela",
         email: "pamela@taller.com",
@@ -66,37 +69,31 @@ async function main() {
   await prisma.cliente.createMany({
     data: [
       {
-        id: 1,
         nombres: "Carlos",
         apellidos: "Mendoza",
         email: "carlos.mendoza@email.com",
       },
       {
-        id: 2,
         nombres: "Ana",
         apellidos: "Gomez",
         email: "ana.gomez@email.com",
       },
       {
-        id: 3,
         nombres: "Luis",
         apellidos: "Rodriguez",
         email: "luis.rod@email.com",
       },
       {
-        id: 4,
         nombres: "Maria",
         apellidos: "Fernandez",
         email: "maria.fer@email.com",
       },
       {
-        id: 5,
         nombres: "Jorge",
         apellidos: "Martinez",
         email: "jorge.mar@email.com",
       },
       {
-        id: 6,
         nombres: "Lucia",
         apellidos: "Sanchez",
         email: "lucia.san@email.com",
@@ -108,36 +105,35 @@ async function main() {
   await prisma.vehiculo.createMany({
     data: [
       {
-        id: 1,
         placa: "ABC-123",
         marca: "Toyota",
         modelo: "Corolla",
         idCliente: 1,
       },
       {
-        id: 2,
         placa: "DEF-456",
         marca: "Hyundai",
         modelo: "Tucson",
         idCliente: 2,
       },
-      { id: 3, placa: "GHI-789", marca: "Kia", modelo: "Rio", idCliente: 3 },
+      { placa: "GHI-789",
+        marca: "Kia",
+        modelo: "Rio",
+        idCliente: 3 
+      },
       {
-        id: 4,
         placa: "JKL-101",
         marca: "Nissan",
         modelo: "Sentra",
         idCliente: 4,
       },
       {
-        id: 5,
         placa: "MNO-202",
         marca: "Chevrolet",
         modelo: "Onix",
         idCliente: 5,
       },
       {
-        id: 6,
         placa: "PQR-303",
         marca: "Volkswagen",
         modelo: "Gol",
@@ -150,21 +146,31 @@ async function main() {
   await prisma.repuesto.createMany({
     data: [
       {
-        id: 1,
         nombre: "Pastillas de Freno Delanteras",
         precio_unid: 45.0,
         stock: 30,
       },
       {
-        id: 2,
         nombre: "Filtro de Aceite Sintético",
         precio_unid: 15.5,
         stock: 50,
       },
-      { id: 3, nombre: "Filtro de Aire Motor", precio_unid: 18.0, stock: 40 },
-      { id: 4, nombre: "Bujía de Iridio", precio_unid: 12.0, stock: 100 },
-      { id: 5, nombre: "Amortiguador Delantero", precio_unid: 85.0, stock: 12 },
-      { id: 6, nombre: "Batería 12V 60Ah", precio_unid: 110.0, stock: 15 },
+      { nombre: "Filtro de Aire Motor",
+        precio_unid: 18.0,
+        stock: 40 
+      },
+      { nombre: "Bujía de Iridio",
+        precio_unid: 12.0,
+        stock: 100 
+      },
+      { nombre: "Amortiguador Delantero",
+        precio_unid: 85.0,
+        stock: 12 
+      },
+      { nombre: "Batería 12V 60Ah",
+        precio_unid: 110.0,
+        stock: 15 
+      },
     ],
   });
 
@@ -174,7 +180,6 @@ async function main() {
   await prisma.ordenServicio.createMany({
     data: [
       {
-        id: 1,
         descripcion: "Cambio de pastillas de freno",
         costomecanico: 30.0,
         estado: EstadoServicio.LISTO,
@@ -183,7 +188,6 @@ async function main() {
         idVehiculo: 1,
       },
       {
-        id: 2,
         descripcion: "Mantenimiento preventivo 10k",
         costomecanico: 50.0,
         estado: EstadoServicio.EN_REPARACION,
@@ -192,7 +196,6 @@ async function main() {
         idVehiculo: 2,
       },
       {
-        id: 3,
         descripcion: "Cambio de bujías y limpieza",
         costomecanico: 40.0,
         estado: EstadoServicio.RECEPCIONADO,
@@ -201,7 +204,6 @@ async function main() {
         idVehiculo: 3,
       },
       {
-        id: 4,
         descripcion: "Revisión sistema eléctrico",
         costomecanico: 25.0,
         estado: EstadoServicio.LISTO,
@@ -211,7 +213,6 @@ async function main() {
       },
 
       {
-        id: 5,
         descripcion: "Reemplazo de amortiguadores",
         costomecanico: 60.0,
         estado: EstadoServicio.EN_REPARACION,
@@ -220,7 +221,6 @@ async function main() {
         idVehiculo: 5,
       },
       {
-        id: 6,
         descripcion: "Instalación de batería nueva",
         costomecanico: 20.0,
         estado: EstadoServicio.LISTO,
@@ -229,7 +229,6 @@ async function main() {
         idVehiculo: 6,
       },
       {
-        id: 7,
         descripcion: "Afinamiento completo de motor",
         costomecanico: 80.0,
         estado: EstadoServicio.RECEPCIONADO,
@@ -239,7 +238,6 @@ async function main() {
       },
 
       {
-        id: 8,
         descripcion: "Cambio de filtros y fluidos",
         costomecanico: 35.0,
         estado: EstadoServicio.EN_REPARACION,
@@ -248,7 +246,6 @@ async function main() {
         idVehiculo: 2,
       },
       {
-        id: 9,
         descripcion: "Cambio de pastillas traseras",
         costomecanico: 30.0,
         estado: EstadoServicio.LISTO,
@@ -257,7 +254,6 @@ async function main() {
         idVehiculo: 3,
       },
       {
-        id: 10,
         descripcion: "Reemplazo amortiguador trasero",
         costomecanico: 55.0,
         estado: EstadoServicio.RECEPCIONADO,
@@ -272,105 +268,115 @@ async function main() {
   // Se mantiene estrictamente en el rango del 1 al 10 sobre OrdenServicio
   await prisma.detalleServicio.createMany({
     data: [
-      { id: 1, cantidad: 2, subTotal: 90.0, idOrdenServicio: 1, idRepuesto: 1 },
-      { id: 2, cantidad: 1, subTotal: 15.5, idOrdenServicio: 2, idRepuesto: 2 },
-      { id: 3, cantidad: 1, subTotal: 18.0, idOrdenServicio: 2, idRepuesto: 3 },
-      { id: 4, cantidad: 4, subTotal: 48.0, idOrdenServicio: 3, idRepuesto: 4 },
+      { cantidad: 2,
+        subTotal: 90.0,
+        idOrdenServicio: 1,
+        idRepuesto: 1
+      },
+      { cantidad: 1,
+        subTotal: 15.5,
+        idOrdenServicio: 2,
+        idRepuesto: 2
+      },
+      { cantidad: 1,
+        subTotal: 18.0,
+        idOrdenServicio: 2,
+        idRepuesto: 3 
+      },
+      { cantidad: 4,
+        subTotal: 48.0,
+        idOrdenServicio: 3,
+        idRepuesto: 4 
+      },
       {
-        id: 5,
         cantidad: 1,
         subTotal: 110.0,
         idOrdenServicio: 4,
         idRepuesto: 6,
       },
       {
-        id: 6,
         cantidad: 2,
         subTotal: 170.0,
         idOrdenServicio: 5,
         idRepuesto: 5,
       },
       {
-        id: 7,
         cantidad: 1,
         subTotal: 110.0,
         idOrdenServicio: 6,
         idRepuesto: 6,
       },
-      { id: 8, cantidad: 4, subTotal: 48.0, idOrdenServicio: 7, idRepuesto: 4 },
-      { id: 9, cantidad: 1, subTotal: 15.5, idOrdenServicio: 7, idRepuesto: 2 },
+      { cantidad: 4,
+        subTotal: 48.0,
+        idOrdenServicio: 7,
+        idRepuesto: 4 
+      },
+      { cantidad: 1,
+        subTotal: 15.5,
+        idOrdenServicio: 7,
+        idRepuesto: 2 
+      },
       {
-        id: 10,
         cantidad: 1,
         subTotal: 18.0,
         idOrdenServicio: 7,
         idRepuesto: 3,
       },
       {
-        id: 11,
         cantidad: 1,
         subTotal: 15.5,
         idOrdenServicio: 8,
         idRepuesto: 2,
       },
       {
-        id: 12,
         cantidad: 1,
         subTotal: 18.0,
         idOrdenServicio: 8,
         idRepuesto: 3,
       },
       {
-        id: 13,
         cantidad: 2,
         subTotal: 90.0,
         idOrdenServicio: 9,
         idRepuesto: 1,
       },
       {
-        id: 14,
         cantidad: 2,
         subTotal: 170.0,
         idOrdenServicio: 10,
         idRepuesto: 5,
       },
       {
-        id: 15,
         cantidad: 1,
         subTotal: 45.0,
         idOrdenServicio: 1,
         idRepuesto: 1,
       },
       {
-        id: 16,
         cantidad: 1,
         subTotal: 15.5,
         idOrdenServicio: 3,
         idRepuesto: 2,
       },
       {
-        id: 17,
         cantidad: 1,
         subTotal: 18.0,
         idOrdenServicio: 4,
         idRepuesto: 3,
       },
       {
-        id: 18,
         cantidad: 2,
         subTotal: 24.0,
         idOrdenServicio: 5,
         idRepuesto: 4,
       },
       {
-        id: 19,
         cantidad: 1,
         subTotal: 15.5,
         idOrdenServicio: 6,
         idRepuesto: 2,
       },
       {
-        id: 20,
         cantidad: 1,
         subTotal: 18.0,
         idOrdenServicio: 9,

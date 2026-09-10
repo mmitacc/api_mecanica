@@ -965,30 +965,6 @@
         ],
         "summary": "Crear un cliente",
         "description": "Registra un nuevo cliente.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nombres": {
-                  "type": "string",
-                  "example": "Juan Carlos"
-                },
-                "apellidos": {
-                  "type": "string",
-                  "example": "Pérez"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "juan@gmail.com"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -1009,19 +985,24 @@
           }
         ],
         "requestBody": {
+          "description": "Registra un nuevo cliente",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "nombres": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Juan Carlos"
                   },
                   "apellidos": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Perez"
                   },
                   "email": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "juan@gmail.com"
                   }
                 }
               }
@@ -1086,28 +1067,6 @@
               "type": "string"
             },
             "description": "ID del cliente"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nombres": {
-                  "type": "string",
-                  "example": "Juan Carlos"
-                },
-                "apellidos": {
-                  "type": "string",
-                  "example": "Pérez"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "juan@gmail.com"
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -1130,19 +1089,24 @@
           }
         ],
         "requestBody": {
+          "description": "Registra un nuevo cliente",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "nombres": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Juan Carlos"
                   },
                   "apellidos": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Perez"
                   },
                   "email": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "juan@gmail.com"
                   }
                 }
               }
@@ -1181,34 +1145,6 @@
         ],
         "summary": "Crear un vehículo",
         "description": "Registra un nuevo vehículo asociado a un cliente.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "placa": {
-                  "type": "string",
-                  "example": "ABC123"
-                },
-                "marca": {
-                  "type": "string",
-                  "example": "Toyota"
-                },
-                "modelo": {
-                  "type": "string",
-                  "example": "Corolla"
-                },
-                "idCliente": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -1232,22 +1168,28 @@
           }
         ],
         "requestBody": {
+          "description": "Registra un nuevo cliente",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "ABC123"
                   },
                   "marca": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Toyota"
                   },
                   "modelo": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Corolla"
                   },
                   "idCliente": {
-                    "example": "any"
+                    "type": "number",
+                    "example": 1
                   }
                 }
               }
@@ -1312,32 +1254,6 @@
               "type": "string"
             },
             "description": "ID del vehículo"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "placa": {
-                  "type": "string",
-                  "example": "ABC123"
-                },
-                "marca": {
-                  "type": "string",
-                  "example": "Toyota"
-                },
-                "modelo": {
-                  "type": "string",
-                  "example": "Corolla"
-                },
-                "idCliente": {
-                  "type": "number",
-                  "example": 1
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -1363,22 +1279,28 @@
           }
         ],
         "requestBody": {
+          "description": "Registra un nuevo cliente",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "placa": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "ABC123"
                   },
                   "marca": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Toyota"
                   },
                   "modelo": {
-                    "example": "any"
+                    "type": "string",
+                    "example": "Corolla"
                   },
                   "idCliente": {
-                    "example": "any"
+                    "type": "number",
+                    "example": 1
                   }
                 }
               }
