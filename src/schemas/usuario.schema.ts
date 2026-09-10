@@ -53,7 +53,8 @@ export const UpdateUsuarioSchema = UsuarioSchema.omit({
 
 export const IdUsuarioSchema = UsuarioSchema.pick({ id: true });
 
-export const PasswordUsuarioSchema = UsuarioSchema.pick({
+export const AuthUsuarioSchema = UsuarioSchema.pick({
+  email: true,
   password: true,
 });
 
