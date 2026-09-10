@@ -15,8 +15,7 @@ export const validate = (
       const message = `${field}: ${issue?.message}`;
       return res.status(400).json({ message });
     }
-    req[source] = result.data;
+    (req as any)[source] = result.data;
     next();
   };
 };
-
