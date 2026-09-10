@@ -8,7 +8,7 @@ export interface RegistrarOrden {
 }
 
 export interface UpdateOrden {
-    costo_mecanico: number;
+    costomecanico: number;
     estado: EstadoServicio;
     total: number;
     fechacreacion: Date;

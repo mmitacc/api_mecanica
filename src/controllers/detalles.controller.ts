@@ -140,7 +140,7 @@ export const createdetalle = async (
       idRepuesto,
     );
     res.status(200).json({ data: resultado });
-  } catch (error) {
-    res.status(500).json({ message: "error al crear al usuario" });
+  } catch (error:any) {
+    res.status(500).json({ message: error });
   }
 };
