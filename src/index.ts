@@ -61,7 +61,7 @@ app.use(
 );
 
 // Inicializador de servidor
-// console.clear();
+console.clear();
 app.listen(3000, () => {
   console.log(`[[<API>]]: Servidor corriendo en http://localhost:3000`);
   console.log(

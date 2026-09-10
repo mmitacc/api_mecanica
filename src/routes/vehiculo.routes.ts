@@ -53,16 +53,23 @@ router.post(
     #swagger.summary = 'Crear un vehículo'
     #swagger.description = 'Registra un nuevo vehículo asociado a un cliente.'
 
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        placa: 'ABC123',
-        marca: 'Toyota',
-        modelo: 'Corolla',
-        idCliente: 1
-      }
-    }
+    #swagger.requestBody = {
+        description: 'Registra un nuevo cliente',
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {                
+                      "placa": {type: 'string', example: "ABC123"},
+                      "marca": {type: 'string', example: "Toyota"},
+                      "modelo": {type: 'string', example: "Corolla"},                      
+                      "idCliente": {type: 'number', example: 1},
+                    }
+                }
+            }
+        }
+    }  
   */
 );
 
@@ -83,16 +90,23 @@ router.put(
       description: 'ID del vehículo'
     }
 
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        placa: 'ABC123',
-        marca: 'Toyota',
-        modelo: 'Corolla',
-        idCliente: 1
-      }
-    }
+    #swagger.requestBody = {
+        description: 'Registra un nuevo cliente',
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {                
+                      "placa": {type: 'string', example: "ABC123"},
+                      "marca": {type: 'string', example: "Toyota"},
+                      "modelo": {type: 'string', example: "Corolla"},                      
+                      "idCliente": {type: 'number', example: 1},
+                    }
+                }
+            }
+        }
+    }  
   */
 );
 

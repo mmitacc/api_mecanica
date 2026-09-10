@@ -52,16 +52,23 @@ router.post(
     #swagger.tags = ['Clientes']
     #swagger.summary = 'Crear un cliente'
     #swagger.description = 'Registra un nuevo cliente.'
-
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        nombres: 'Juan Carlos',
-        apellidos: 'Pérez',
-        email: 'juan@gmail.com'
-      }
-    }
+    
+    #swagger.requestBody = {
+        description: 'Registra un nuevo cliente',
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {                
+                      "nombres": {type: 'string', example: "Juan Carlos"},
+                      "apellidos": {type: 'string', example: "Perez"},
+                      "email": {type: 'string', example: "juan@gmail.com"},
+                    }
+                }
+            }
+        }
+    }   
   */
 );
 
@@ -82,15 +89,22 @@ router.put(
       description: 'ID del cliente'
     }
 
-    #swagger.parameters['body'] = {
-      in: 'body',
-      required: true,
-      schema: {
-        nombres: 'Juan Carlos',
-        apellidos: 'Pérez',
-        email: 'juan@gmail.com'
-      }
-    }
+    #swagger.requestBody = {
+        description: 'Registra un nuevo cliente',
+        required: true,
+        content: {
+            "application/json": {
+                schema: {
+                    type: 'object',
+                    properties: {                
+                      "nombres": {type: 'string', example: "Juan Carlos"},
+                      "apellidos": {type: 'string', example: "Perez"},
+                      "email": {type: 'string', example: "juan@gmail.com"},
+                    }
+                }
+            }
+        }
+    }  
   */
 );
 
